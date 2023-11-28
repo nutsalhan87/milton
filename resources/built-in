@@ -1,0 +1,12 @@
+sign a
+& a b
+| a b
++ a b
+- a b
+* a b
+/ a b
+% a b
+in
+out a
+print a
+print_positive_int a
