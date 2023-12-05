@@ -7,6 +7,6 @@ edition = "2021"
 
 [[bin]]
 name="nlisp"
-path="src/nlisp/main.rs"
+path="nlisp/main.rs"
 
 [dependencies]

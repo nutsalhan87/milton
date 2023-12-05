@@ -8,5 +8,6 @@ sign a
 % a b
 in
 out a
+read
 print a
 print_positive_int a
