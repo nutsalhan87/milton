@@ -22,6 +22,11 @@ pub enum Expression {
         name: String,
         args: Vec<Expression>,
     },
+    VarDef {
+        name: String,
+        init: Box<Expression>,
+        expr: Box<Expression>,
+    },
     Var(String),
     Str(String),
     Value(i32),
@@ -35,6 +40,7 @@ pub enum ExpressionType {
     FnDef,
     For,
     FnOrVar,
+    VarDef,
 }
 
 impl ExpressionType {
@@ -51,6 +57,10 @@ impl ExpressionType {
             Self::For => format!("A for cycle was expected here: {}...", error_code(s)),
             Self::FnOrVar => format!(
                 "A function call or variable reference was expected here: {}...",
+                error_code(s)
+            ),
+            Self::VarDef => format!(
+                "A variable definition was expected here: {}...",
                 error_code(s)
             ),
         }

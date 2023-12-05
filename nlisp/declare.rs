@@ -47,4 +47,8 @@ impl Declared {
             ))
         }
     }
+
+    pub fn novar(&self) -> Self {
+        Declared { vars: HashSet::new(), fns: self.fns.clone() }
+    }
 }

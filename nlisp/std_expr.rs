@@ -14,18 +14,7 @@ fn declared_std() -> Declared {
 pub fn parse_std() -> (Vec<Expression>, Declared) {
     let mut declared = declared_std();
     let std_nl = fs::read_to_string("resources/std.nl").unwrap();
-    let expressions = parse(std_nl, Vec::new(), &mut declared).unwrap();
+    let expressions = parse(std_nl, &mut declared).unwrap();
 
     (expressions, declared)
-}
-
-#[cfg(test)]
-mod test {
-    use super::parse_std;
-
-    #[test]
-    fn t1() {
-        let (a, b) = parse_std();
-        println!("{:#?}\n{:#?}", a, b);
-    }
 }

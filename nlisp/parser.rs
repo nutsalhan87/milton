@@ -1,4 +1,7 @@
-use crate::{expression::{Expression, ExpressionType}, util::{split_first, error_code, replace_n}};
+use crate::{
+    expression::{Expression, ExpressionType},
+    util::{error_code, replace_n, split_first},
+};
 
 use super::declare::Declared;
 
@@ -56,15 +59,32 @@ fn parse_fn_def(expr_pointer: &mut &str, declared: &mut Declared) -> Result<Expr
         ExpressionType::FnDef,
     )?;
     *expr_pointer = other;
-    let arg_names = parse_arg_names(expr_pointer, declared)?;
-    declared.fn_def(fn_name, arg_names.len())?;
-    let expr = Box::new(parse_expr(expr_pointer, declared)?);
-    for arg in &arg_names {
-        declared.var_undec(arg)?;
-    }
+    let mut novar = declared.novar();
+    let arg_names = parse_arg_names(expr_pointer, &mut novar)?;
+    novar.fn_def(fn_name, arg_names.len())?;
+    let expr = Box::new(parse_expr(expr_pointer, &mut novar)?);
+    declared.fns = novar.fns;
     Ok(Expression::FnDef {
         name: fn_name.to_string(),
         arguments: arg_names,
+        expr,
+    })
+}
+
+fn parse_var_def(expr_pointer: &mut &str, declared: &mut Declared) -> Result<Expression, String> {
+    let (var_name, other) = split_first(
+        expr_pointer.trim_start()[3..].trim_start(),
+        &[' '],
+        ExpressionType::VarDef,
+    )?;
+    *expr_pointer = other;
+    let init = Box::new(parse_expr(expr_pointer, declared)?);
+    declared.var_dec(var_name)?;
+    let expr = Box::new(parse_expr(expr_pointer, declared)?);
+    declared.var_undec(var_name)?;
+    Ok(Expression::VarDef {
+        name: var_name.to_string(),
+        init,
         expr,
     })
 }
@@ -154,6 +174,7 @@ fn parse_expr(expr_pointer: &mut &str, declared: &mut Declared) -> Result<Expres
         "fn" => parse_fn_def(expr_pointer, declared),
         "case" => parse_case(expr_pointer, declared),
         "for" => parse_for(expr_pointer, declared),
+        "let" => parse_var_def(expr_pointer, declared),
         other => {
             if let Ok(_) = other.parse::<i32>() {
                 parse_num(expr_pointer)
@@ -164,18 +185,15 @@ fn parse_expr(expr_pointer: &mut &str, declared: &mut Declared) -> Result<Expres
     }
 }
 
-pub fn parse(
-    input: String,
-    mut std_expressions: Vec<Expression>,
-    std_declared: &mut Declared,
-) -> Result<Vec<Expression>, String> {
+pub fn parse(input: String, std_declared: &mut Declared) -> Result<Vec<Expression>, String> {
     let input = replace_n(input);
     let input_pointer: &mut &str = &mut &input[..];
+    let mut expressions = Vec::new();
     while input_pointer.len() > 0 && input_pointer.trim_start().as_bytes()[0] == b'(' {
-        std_expressions.push(parse_expr(input_pointer, std_declared)?);
+        expressions.push(parse_expr(input_pointer, std_declared)?);
     }
 
-    Ok(std_expressions)
+    Ok(expressions)
 }
 
 #[cfg(test)]
@@ -187,24 +205,32 @@ mod test {
     #[test]
     fn hello() -> Result<(), Box<dyn Error>> {
         let s = fs::read_to_string("resources/hello.nl")?;
-        let (a, mut b) = parse_std();
-        println!("{:#?}", parse(s, a, &mut b)?);
+        let (_, mut b) = parse_std();
+        println!("{:#?}", parse(s, &mut b)?);
         Ok(())
     }
 
     #[test]
     fn cat() -> Result<(), Box<dyn Error>> {
         let s = fs::read_to_string("resources/cat.nl")?;
-        let (a, mut b) = parse_std();
-        println!("{:#?}", parse(s, a, &mut b)?);
+        let (_, mut b) = parse_std();
+        println!("{:#?}", parse(s, &mut b)?);
+        Ok(())
+    }
+
+    #[test]
+    fn hello_user_name() -> Result<(), Box<dyn Error>> {
+        let s = fs::read_to_string("resources/hello_user_name.nl")?;
+        let (_, mut b) = parse_std();
+        println!("{:#?}", parse(s, &mut b)?);
         Ok(())
     }
 
     #[test]
     fn prob1() -> Result<(), Box<dyn Error>> {
         let s = fs::read_to_string("resources/prob1.nl")?;
-        let (a, mut b) = parse_std();
-        println!("{:#?}", parse(s, a, &mut b)?);
+        let (_, mut b) = parse_std();
+        println!("{:#?}", parse(s, &mut b)?);
         Ok(())
     }
 }
