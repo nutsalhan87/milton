@@ -80,19 +80,19 @@ fn translate(
             expr,
         } => {
             let mut instructions = Vec::new();
-            vars.insert(var.clone(), Var::Memory(data.len() as u16 + 12)); // variable
-            data.append(&mut vec![0, 0, 0, 0]);
-
-            instructions.push(0x0D800000); // load 0
-            instructions.push(0x0E000000 | vars[var].to_arg()); // save # var
-            instructions.push(0x0C80FFFC); // spadd -4
-            instructions.push(0x0E400000); // save ~ 0 - init cumulative with 0
 
             vars.iter_mut().for_each(|v| {
                 if let Var::Stack(n) = v.1 {
-                    *n += 4;
+                    *n += 8;
                 }
             });
+            vars.insert(var.clone(), Var::Stack(4)); // variable
+
+            instructions.push(0x0C80FFF8); // spadd -8
+            instructions.push(0x0D800000); // load 0
+            instructions.push(0x0E000000 | vars[var].to_arg()); // save # var
+            instructions.push(0x0D800000); // load 0
+            instructions.push(0x0E400000); // save ~ 0 - init cumulative with 0
 
             let next_val_addr = instructions.len();
 
@@ -113,14 +113,14 @@ fn translate(
                     | (next_val_addr as i32 - instructions.len() as i32) as i16 as u16 as u32,
             ); // jump - -> next_val
             instructions.push(0x0D400000); // load ~ 0 :end
-            instructions.push(0x0C800004); // spadd 4
+            instructions.push(0x0C800008); // spadd 8
 
+            vars.remove(var);
             vars.iter_mut().for_each(|v| {
                 if let Var::Stack(n) = v.1 {
-                    *n -= 4;
+                    *n -= 8;
                 }
             });
-            vars.remove(var);
 
             instructions
         }
@@ -143,7 +143,7 @@ fn translate(
                 instructions.append(&mut arg_instructions);
                 instructions.push(0x0E400000 + 4 * idx as u32); // save ~n
             }
-            instructions.push(0x0A000000 | fn_addresses[name] as u32); // call -
+            instructions.push(0x0A000000 | fn_addresses[name] as u32); // call
             instructions.push(0x0C800000 | (args.len() * 4) as u32); // spadd x
 
             vars.iter_mut().for_each(|v| {
@@ -157,8 +157,13 @@ fn translate(
         Expression::VarDef { name, init, expr } => {
             let mut instructions = Vec::new();
 
-            vars.insert(name.clone(), Var::Memory(data.len() as u16 + 12)); // variable
-            data.append(&mut vec![0, 0, 0, 0]);
+            vars.iter_mut().for_each(|v| {
+                if let Var::Stack(n) = v.1 {
+                    *n += 4;
+                }
+            });
+            vars.insert(name.clone(), Var::Stack(0)); // variable
+            instructions.push(0x0C80FFFC); // spadd -4
 
             let mut init_instructions = translate(init, vars, fn_addresses, data);
             instructions.append(&mut init_instructions);
@@ -167,7 +172,13 @@ fn translate(
             let mut expr_instructions = translate(expr, vars, fn_addresses, data);
             instructions.append(&mut expr_instructions);
 
+            instructions.push(0x0C800004); // spadd 4
             vars.remove(name);
+            vars.iter_mut().for_each(|v| {
+                if let Var::Stack(n) = v.1 {
+                    *n -= 4;
+                }
+            });
 
             instructions
         }
@@ -200,12 +211,12 @@ pub fn compile(preprocessed: Preprocessed) -> (Vec<u8>, usize, usize) {
     let mut vars = HashMap::new();
 
     for fn_def in preprocessed.fn_defs {
-        let mut fn_def_asm = translate(&fn_def, &mut vars, &fn_addresses, &mut data);
-        if let Expression::FnDef { name, .. } = fn_def {
-            fn_addresses.insert(name, instructions.len() as u16);
+        if let Expression::FnDef { name, .. } = &fn_def {
+            fn_addresses.insert(name.clone(), instructions.len() as u16);
         } else {
             panic!("There must be function definition");
         }
+        let mut fn_def_asm = translate(&fn_def, &mut vars, &fn_addresses, &mut data);
         instructions.append(&mut fn_def_asm);
     }
     instructions[0] = 0x08000000 + instructions.len() as u32; // jump n
@@ -218,7 +229,10 @@ pub fn compile(preprocessed: Preprocessed) -> (Vec<u8>, usize, usize) {
 
     let instructions_count = instructions.len();
     for (idx, instr) in instructions.iter().copied().enumerate() {
-        eprintln!("{idx} {instr:08x} {}", vm::decode_asm(instr));
+        eprintln!(
+            "{idx} - {instr:08x} - {}",
+            vm::decode_asm(instr, Some(&fn_addresses))
+        );
     }
 
     let mut data = [vec![0u8; 12], data].concat();

@@ -48,17 +48,18 @@ fn main() -> Result<(), Box<dyn Error>> {
     while !cu.tick() {
         eprintln!(
             "{}        ip: {}, acc: {}, sp: {}",
-            vm::decode_asm(cu.mem[cu.ip as usize]),
+            vm::decode_asm(cu.mem[cu.ip as usize], None),
             cu.ip,
             cu.datapath.acc,
             cu.datapath.sp
         );
     }
-    println!("{}", std::str::from_utf8(&cu.datapath.output)?);
     eprintln!(
         "Ticks: {}; instructions: {}",
         cu.ticks_count, cu.instructions_count
     );
+
+    println!("{}", std::str::from_utf8(&cu.datapath.output)?);
 
     Ok(())
 }

@@ -34,12 +34,7 @@ fn golden() -> Result<(), Box<dyn Error>> {
         let compiler_output = Command::new("target/debug/nlisp")
             .args([SOURCES, BINARY])
             .output()?;
-        let compiled = {
-            let s = String::from_utf8(compiler_output.stderr)?;
-            let lines: Vec<String> = s.lines().map(|v| v.to_string()).collect();
-            let last_lines: Vec<String> = lines.into_iter().rev().take(100).rev().collect();
-            last_lines.join("\n")
-        };
+        let compiled = String::from_utf8(compiler_output.stderr)?;
 
         let machine_output = Command::new("target/debug/milton")
             .arg(BINARY)

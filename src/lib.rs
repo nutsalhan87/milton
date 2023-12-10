@@ -1,4 +1,6 @@
-pub fn decode_asm(instr: u32) -> String {
+use std::collections::HashMap;
+
+pub fn decode_asm(instr: u32, fn_addresses: Option<&HashMap<String, u16>>) -> String {
     match (instr >> 24) as u8 {
         0x00 => format!("sign {}", addr_mode_str(instr)),
         0x01 => format!("and {}", addr_mode_str(instr)),
@@ -10,7 +12,20 @@ pub fn decode_asm(instr: u32) -> String {
         0x07 => format!("rem {}", addr_mode_str(instr)),
         0x08 => format!("jump {}", instr as u16 as i16),
         0x09 => format!("jifz {}", instr as u16 as i16),
-        0x0A => format!("call {}", instr as u16 as i16),
+        0x0A => {
+            if let Some(fn_addresses) = fn_addresses {
+                format!(
+                    "call {} -> {}",
+                    instr as u16 as i16,
+                    fn_addresses
+                        .iter()
+                        .find_map(|(k, v)| if *v == instr as u16 { Some(k) } else { None })
+                        .unwrap()
+                )
+            } else {
+                format!("call {}", instr as u16 as i16)
+            }
+        }
         0x0B => "ret".to_string(),
         0x0C => format!("spadd {}", addr_mode_str(instr)),
         0x0D => format!("load {}", addr_mode_str(instr)),

@@ -34,7 +34,8 @@ fn preprocessed_expressions(input_str: String) -> Result<Preprocessed, Box<dyn E
     let (mut std_expressions, mut std_declared) = parse_std();
     let expressions = parse(input_str, &mut std_declared)?;
     let mut preprocessed = preprocess(expressions);
-    preprocessed.fn_defs.append(&mut std_expressions);
+    std_expressions.append(&mut preprocessed.fn_defs);
+    preprocessed.fn_defs = std_expressions;
 
     Ok(preprocessed)
 }
