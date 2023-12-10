@@ -239,6 +239,34 @@ cargo test
 В Golden тестах выводятся последние 100 строк дебаг вывода компилятора и виртуальной машины.
 
 ## CI
+```
+name: Rust
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+env:
+  CARGO_TERM_COLOR: always
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Build
+      run: cargo build --verbose
+    - name: Run tests
+      run: cargo test --verbose
+    - name: Run formatting check
+      run: cargo fmt -- --check
+    - name: Run clippy
+      run: cargo clippy -- -D warnings
+```
 
 ## Полный цикл на примере prob1
 Исходный код:
