@@ -6,10 +6,7 @@ pub struct Preprocessed {
     pub main: Vec<Expression>,
 }
 
-fn preprocess_expr(
-    expression: Expression,
-    preprocessed: &mut Preprocessed,
-) -> Expression {
+fn preprocess_expr(expression: Expression, preprocessed: &mut Preprocessed) -> Expression {
     match expression {
         Expression::FnDef {
             name,
@@ -17,15 +14,19 @@ fn preprocess_expr(
             expr,
         } => {
             let expr = Box::new(preprocess_expr(*expr, preprocessed));
-            preprocessed
-                .fn_defs
-                .push(Expression::FnDef { name, arguments, expr });
+            preprocessed.fn_defs.push(Expression::FnDef {
+                name,
+                arguments,
+                expr,
+            });
+
             Expression::Value(0)
         }
         Expression::Case { condition, t, f } => {
             let condition = Box::new(preprocess_expr(*condition, preprocessed));
             let t = Box::new(preprocess_expr(*t, preprocessed));
             let f = Box::new(preprocess_expr(*f, preprocessed));
+
             Expression::Case { condition, t, f }
         }
         Expression::For {
@@ -37,20 +38,29 @@ fn preprocess_expr(
             let next_val = Box::new(preprocess_expr(*next_val, preprocessed));
             let while_expr = Box::new(preprocess_expr(*while_expr, preprocessed));
             let expr = Box::new(preprocess_expr(*expr, preprocessed));
-            Expression::For { var, next_val, while_expr, expr }
-        },
+
+            Expression::For {
+                var,
+                next_val,
+                while_expr,
+                expr,
+            }
+        }
         Expression::Fn { name, args } => {
-            let args: Vec<Expression> = args.into_iter().map(|v| preprocess_expr(v, preprocessed)).collect();
+            let args: Vec<Expression> = args
+                .into_iter()
+                .map(|v| preprocess_expr(v, preprocessed))
+                .collect();
+
             Expression::Fn { name, args }
-        },
+        }
         Expression::VarDef { name, init, expr } => {
             let init = Box::new(preprocess_expr(*init, preprocessed));
             let expr = Box::new(preprocess_expr(*expr, preprocessed));
+
             Expression::VarDef { name, init, expr }
         }
-        _ => {
-            expression
-        }
+        _ => expression,
     }
 }
 
@@ -64,5 +74,6 @@ pub fn preprocess(program: Vec<Expression>) -> Preprocessed {
         .map(|v| preprocess_expr(v, &mut preprocessed))
         .collect();
     preprocessed.main = program;
+
     preprocessed
 }

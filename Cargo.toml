@@ -1,5 +1,5 @@
 [package]
-name = "milton"
+name = "vm"
 version = "0.1.0"
 edition = "2021"
 
@@ -9,4 +9,10 @@ edition = "2021"
 name="nlisp"
 path="nlisp/main.rs"
 
+[[bin]]
+name="milton"
+path="milton/main.rs"
+
 [dependencies]
+serde = { version = "1.0.193", features = ["derive"] }
+serde_yaml = "0.9.27"

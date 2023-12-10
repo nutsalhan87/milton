@@ -1,0 +1,91 @@
+sign 2
+00400004 // sign ~ 4
+0B000000 // ret
+& 3
+0D400004 // load ~ 4
+01400008 // and ~ 8
+0B000000 // ret
+| 3
+0D400004 // load ~ 4
+02400008 // or ~ 8
+0B000000 // ret
++ 3
+0D400004 // load ~ 4
+03400008 // add ~ 8
+0B000000 // ret
+- 3
+0D400008 // load ~ 4
+04400004 // sub ~ 8
+0B000000 // ret
+* 3
+0D400004 // load ~ 4
+05400008 // mul ~ 8
+0B000000 // ret
+/ 3
+0D400008 // load ~ 8
+06400004 // div ~ 4
+0B000000 // ret
+% 3
+0D400008 // load ~ 8
+07400004 // rem ~ 4
+0B000000 // ret
+in 2
+0D000000 // load # 0
+0B000000 // ret
+out 3
+0D400004 // load ~ 4
+0E000004 // save # 4
+0B000000 // ret
+read 13
+0D000008 // load # 8
+0E40FFFC // save ~ -4 
+0D000000 // load # 0
+0E40FFF8 // save ~ -8
+10000008 // svrel # 8
+0D000008 // load # 8
+03800001 // add 1
+0E000008 // save # 8
+0D40FFF8 // load ~ -8
+09000002 // jifz +2
+0800FFF8 // jump -8
+0D40FFFC // load ~ -4
+0B000000 // ret
+print 12
+0D400004 // load ~ 4
+0E40FFFC // save ~ -4
+0F40FFFC // ldrel ~ -4
+018000FF // and 0x00FF
+09000006 // jifz +6
+0E000004 // save # 4
+0D40FFFC // load ~ -4
+03800001 // add 1
+0E40FFFC // save ~ -4
+0800FFF9 // jump -7
+0D800000 // load 0
+0B000000 // ret
+print_positive_int 25
+0D400004 // load ~ 4
+0C80FFFC // spadd -4
+09000013 // jifz +19 -> if_zero
+10000008 // svrel # 8
+0D800000 // load 0
+0E400000 // save ~ 0
+0F000008 // ldrel # 8 
+0780000A // rem 10 :div_num
+03800030 // add 48
+0C80FFFC // spadd -4
+0E400000 // save ~ 0
+0F000008 // ldrel # 8
+0680000A // div 10
+10000008 // svrel # 8
+09000002 // jifz +2 -> print_num
+0800FFF8 // jump -8 -> div_num
+0D400000 // load ~ 0 :print_num
+09000006 // jifz +6 -> end
+0E000004 // save # 4
+0C800004 // spadd 4
+0800FFFC // jump -4 -> print_num
+0D800030 // load 0x30 :if_zero
+0E000004 // save # 4
+0C800004 // spadd 4 :end
+0B000000 // ret

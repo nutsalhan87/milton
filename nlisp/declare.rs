@@ -1,4 +1,4 @@
-use std::collections::{HashSet, HashMap};
+use std::collections::{HashMap, HashSet};
 
 #[derive(Debug)]
 pub struct Declared {
@@ -26,13 +26,13 @@ impl Declared {
     }
 
     pub fn fn_def(&mut self, fn_name: &str, args: usize) -> Result<(), String> {
-        self.assert_undeclared(&fn_name)?;
+        self.assert_undeclared(fn_name)?;
         self.fns.insert(fn_name.to_string(), args);
         Ok(())
     }
 
     pub fn var_dec(&mut self, var_name: &str) -> Result<(), String> {
-        self.assert_undeclared(&var_name)?;
+        self.assert_undeclared(var_name)?;
         self.vars.insert(var_name.to_string());
         Ok(())
     }
@@ -49,6 +49,9 @@ impl Declared {
     }
 
     pub fn novar(&self) -> Self {
-        Declared { vars: HashSet::new(), fns: self.fns.clone() }
+        Declared {
+            vars: HashSet::new(),
+            fns: self.fns.clone(),
+        }
     }
 }

@@ -1,1 +1,1 @@
-(for sym (in) (! sym) (out sym))
+(for sym (in) sym (out sym))

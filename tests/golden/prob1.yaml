@@ -1,0 +1,212 @@
+source: |-
+  (print_int (
+    for el (+ el 1) (< el 1000) (case (| (! (% el 3)) (! (% el 5)))
+        el
+        0
+    )
+  ))
+input: ''
+compiled: |-
+  157 0e400000 save ~ 0
+  158 0a00004f call 79
+  159 0c800004 spadd 4
+  160 0b000000 ret
+  161 0c80fffc spadd -4
+  162 0d400008 load ~ 8
+  163 0e400000 save ~ 0
+  164 0a000001 call 1
+  165 0c800004 spadd 4
+  166 09000017 jifz 23
+  167 0c80fff8 spadd -8
+  168 0c80fffc spadd -4
+  169 0d80002d load 45
+  170 0e400000 save ~ 0
+  171 0a00001a call 26
+  172 0c800004 spadd 4
+  173 0e400004 save ~ 4
+  174 0c80fffc spadd -4
+  175 0c80fff8 spadd -8
+  176 0d400018 load ~ 24
+  177 0e400004 save ~ 4
+  178 0d80ffff load -1
+  179 0e400000 save ~ 0
+  180 0a00000f call 15
+  181 0c800008 spadd 8
+  182 0e400000 save ~ 0
+  183 0a000036 call 54
+  184 0c800004 spadd 4
+  185 0e400000 save ~ 0
+  186 0a000009 call 9
+  187 0c800008 spadd 8
+  188 08000006 jump 6
+  189 0c80fffc spadd -4
+  190 0d400008 load ~ 8
+  191 0e400000 save ~ 0
+  192 0a000036 call 54
+  193 0c800004 spadd 4
+  194 0b000000 ret
+  195 0c80fffc spadd -4
+  196 0d800000 load 0
+  197 0e00000c save # 12
+  198 0c80fffc spadd -4
+  199 0e400000 save ~ 0
+  200 0c80fff8 spadd -8
+  201 0d00000c load # 12
+  202 0e400004 save ~ 4
+  203 0d800001 load 1
+  204 0e400000 save ~ 0
+  205 0a000009 call 9
+  206 0c800008 spadd 8
+  207 0e00000c save # 12
+  208 0c80fff8 spadd -8
+  209 0d00000c load # 12
+  210 0e400004 save ~ 4
+  211 0d8003e8 load 1000
+  212 0e400000 save ~ 0
+  213 0a000075 call 117
+  214 0c800008 spadd 8
+  215 09000023 jifz 35
+  216 0c80fff8 spadd -8
+  217 0c80fffc spadd -4
+  218 0c80fff8 spadd -8
+  219 0d00000c load # 12
+  220 0e400004 save ~ 4
+  221 0d800003 load 3
+  222 0e400000 save ~ 0
+  223 0a000015 call 21
+  224 0c800008 spadd 8
+  225 0e400000 save ~ 0
+  226 0a00004f call 79
+  227 0c800004 spadd 4
+  228 0e400004 save ~ 4
+  229 0c80fffc spadd -4
+  230 0c80fff8 spadd -8
+  231 0d00000c load # 12
+  232 0e400004 save ~ 4
+  233 0d800005 load 5
+  234 0e400000 save ~ 0
+  235 0a000015 call 21
+  236 0c800008 spadd 8
+  237 0e400000 save ~ 0
+  238 0a00004f call 79
+  239 0c800004 spadd 4
+  240 0e400000 save ~ 0
+  241 0a000006 call 6
+  242 0c800008 spadd 8
+  243 09000003 jifz 3
+  244 0d00000c load # 12
+  245 08000002 jump 2
+  246 0d800000 load 0
+  247 03400000 add ~ 0
+  248 0e400000 save ~ 0
+  249 0800ffcf jump -49
+  250 0d400000 load ~ 0
+  251 0c800004 spadd 4
+  252 0e400000 save ~ 0
+  253 0a0000a1 call 161
+  254 0c800004 spadd 4
+  255 11000000 halt
+  Code lines: 6; instructions: 256; bytes: 1040
+stdout: |
+  233168
+stderr: |-
+  div 10        ip: 66, acc: 233168, sp: 65507
+  svrel # 8        ip: 67, acc: 23316, sp: 65507
+  svrel # 8        ip: 67, acc: 23316, sp: 65507
+  jifz 2        ip: 68, acc: 23316, sp: 65507
+  jump -8        ip: 69, acc: 23316, sp: 65507
+  rem 10        ip: 61, acc: 23316, sp: 65507
+  add 48        ip: 62, acc: 6, sp: 65507
+  spadd -4        ip: 63, acc: 54, sp: 65507
+  save ~ 0        ip: 64, acc: 54, sp: 65503
+  ldrel # 8        ip: 65, acc: 54, sp: 65503
+  ldrel # 8        ip: 65, acc: 54, sp: 65503
+  div 10        ip: 66, acc: 23316, sp: 65503
+  svrel # 8        ip: 67, acc: 2331, sp: 65503
+  svrel # 8        ip: 67, acc: 2331, sp: 65503
+  jifz 2        ip: 68, acc: 2331, sp: 65503
+  jump -8        ip: 69, acc: 2331, sp: 65503
+  rem 10        ip: 61, acc: 2331, sp: 65503
+  add 48        ip: 62, acc: 1, sp: 65503
+  spadd -4        ip: 63, acc: 49, sp: 65503
+  save ~ 0        ip: 64, acc: 49, sp: 65499
+  ldrel # 8        ip: 65, acc: 49, sp: 65499
+  ldrel # 8        ip: 65, acc: 49, sp: 65499
+  div 10        ip: 66, acc: 2331, sp: 65499
+  svrel # 8        ip: 67, acc: 233, sp: 65499
+  svrel # 8        ip: 67, acc: 233, sp: 65499
+  jifz 2        ip: 68, acc: 233, sp: 65499
+  jump -8        ip: 69, acc: 233, sp: 65499
+  rem 10        ip: 61, acc: 233, sp: 65499
+  add 48        ip: 62, acc: 3, sp: 65499
+  spadd -4        ip: 63, acc: 51, sp: 65499
+  save ~ 0        ip: 64, acc: 51, sp: 65495
+  ldrel # 8        ip: 65, acc: 51, sp: 65495
+  ldrel # 8        ip: 65, acc: 51, sp: 65495
+  div 10        ip: 66, acc: 233, sp: 65495
+  svrel # 8        ip: 67, acc: 23, sp: 65495
+  svrel # 8        ip: 67, acc: 23, sp: 65495
+  jifz 2        ip: 68, acc: 23, sp: 65495
+  jump -8        ip: 69, acc: 23, sp: 65495
+  rem 10        ip: 61, acc: 23, sp: 65495
+  add 48        ip: 62, acc: 3, sp: 65495
+  spadd -4        ip: 63, acc: 51, sp: 65495
+  save ~ 0        ip: 64, acc: 51, sp: 65491
+  ldrel # 8        ip: 65, acc: 51, sp: 65491
+  ldrel # 8        ip: 65, acc: 51, sp: 65491
+  div 10        ip: 66, acc: 23, sp: 65491
+  svrel # 8        ip: 67, acc: 2, sp: 65491
+  svrel # 8        ip: 67, acc: 2, sp: 65491
+  jifz 2        ip: 68, acc: 2, sp: 65491
+  jump -8        ip: 69, acc: 2, sp: 65491
+  rem 10        ip: 61, acc: 2, sp: 65491
+  add 48        ip: 62, acc: 2, sp: 65491
+  spadd -4        ip: 63, acc: 50, sp: 65491
+  save ~ 0        ip: 64, acc: 50, sp: 65487
+  ldrel # 8        ip: 65, acc: 50, sp: 65487
+  ldrel # 8        ip: 65, acc: 50, sp: 65487
+  div 10        ip: 66, acc: 2, sp: 65487
+  svrel # 8        ip: 67, acc: 0, sp: 65487
+  svrel # 8        ip: 67, acc: 0, sp: 65487
+  jifz 2        ip: 68, acc: 0, sp: 65487
+  load ~ 0        ip: 70, acc: 0, sp: 65487
+  jifz 6        ip: 71, acc: 50, sp: 65487
+  save # 4        ip: 72, acc: 50, sp: 65487
+  spadd 4        ip: 73, acc: 50, sp: 65487
+  jump -4        ip: 74, acc: 50, sp: 65491
+  load ~ 0        ip: 70, acc: 50, sp: 65491
+  jifz 6        ip: 71, acc: 51, sp: 65491
+  save # 4        ip: 72, acc: 51, sp: 65491
+  spadd 4        ip: 73, acc: 51, sp: 65491
+  jump -4        ip: 74, acc: 51, sp: 65495
+  load ~ 0        ip: 70, acc: 51, sp: 65495
+  jifz 6        ip: 71, acc: 51, sp: 65495
+  save # 4        ip: 72, acc: 51, sp: 65495
+  spadd 4        ip: 73, acc: 51, sp: 65495
+  jump -4        ip: 74, acc: 51, sp: 65499
+  load ~ 0        ip: 70, acc: 51, sp: 65499
+  jifz 6        ip: 71, acc: 49, sp: 65499
+  save # 4        ip: 72, acc: 49, sp: 65499
+  spadd 4        ip: 73, acc: 49, sp: 65499
+  jump -4        ip: 74, acc: 49, sp: 65503
+  load ~ 0        ip: 70, acc: 49, sp: 65503
+  jifz 6        ip: 71, acc: 54, sp: 65503
+  save # 4        ip: 72, acc: 54, sp: 65503
+  spadd 4        ip: 73, acc: 54, sp: 65503
+  jump -4        ip: 74, acc: 54, sp: 65507
+  load ~ 0        ip: 70, acc: 54, sp: 65507
+  jifz 6        ip: 71, acc: 56, sp: 65507
+  save # 4        ip: 72, acc: 56, sp: 65507
+  spadd 4        ip: 73, acc: 56, sp: 65507
+  jump -4        ip: 74, acc: 56, sp: 65511
+  load ~ 0        ip: 70, acc: 56, sp: 65511
+  jifz 6        ip: 71, acc: 0, sp: 65511
+  spadd 4        ip: 77, acc: 0, sp: 65511
+  ret        ip: 78, acc: 0, sp: 65515
+  ret        ip: 78, acc: 0, sp: 65519
+  spadd 4        ip: 193, acc: 0, sp: 65519
+  ret        ip: 194, acc: 0, sp: 65523
+  ret        ip: 194, acc: 0, sp: 65527
+  spadd 4        ip: 254, acc: 0, sp: 65527
+  halt        ip: 255, acc: 0, sp: 65531
+  Ticks: 123009; instructions: 87003

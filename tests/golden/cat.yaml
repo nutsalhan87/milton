@@ -1,0 +1,206 @@
+source: (for sym (in) sym (out sym))
+input: HELLO CAT WORLD
+compiled: |-
+  117 0c80fffc spadd -4
+  118 0c80fff8 spadd -8
+  119 0d400014 load ~ 20
+  120 0e400004 save ~ 4
+  121 0d400010 load ~ 16
+  122 0e400000 save ~ 0
+  123 0a00000c call 12
+  124 0c800008 spadd 8
+  125 0e400000 save ~ 0
+  126 0a000001 call 1
+  127 0c800004 spadd 4
+  128 0b000000 ret
+  129 0c80fffc spadd -4
+  130 0c80fffc spadd -4
+  131 0c80fff8 spadd -8
+  132 0d400018 load ~ 24
+  133 0e400004 save ~ 4
+  134 0d400014 load ~ 20
+  135 0e400000 save ~ 0
+  136 0a00000c call 12
+  137 0c800008 spadd 8
+  138 0e400000 save ~ 0
+  139 0a000001 call 1
+  140 0c800004 spadd 4
+  141 0e400000 save ~ 0
+  142 0a00004f call 79
+  143 0c800004 spadd 4
+  144 0b000000 ret
+  145 0c80fffc spadd -4
+  146 0c80fffc spadd -4
+  147 0c80fff8 spadd -8
+  148 0d400014 load ~ 20
+  149 0e400004 save ~ 4
+  150 0d400018 load ~ 24
+  151 0e400000 save ~ 0
+  152 0a00000c call 12
+  153 0c800008 spadd 8
+  154 0e400000 save ~ 0
+  155 0a000001 call 1
+  156 0c800004 spadd 4
+  157 0e400000 save ~ 0
+  158 0a00004f call 79
+  159 0c800004 spadd 4
+  160 0b000000 ret
+  161 0c80fffc spadd -4
+  162 0d400008 load ~ 8
+  163 0e400000 save ~ 0
+  164 0a000001 call 1
+  165 0c800004 spadd 4
+  166 09000017 jifz 23
+  167 0c80fff8 spadd -8
+  168 0c80fffc spadd -4
+  169 0d80002d load 45
+  170 0e400000 save ~ 0
+  171 0a00001a call 26
+  172 0c800004 spadd 4
+  173 0e400004 save ~ 4
+  174 0c80fffc spadd -4
+  175 0c80fff8 spadd -8
+  176 0d400018 load ~ 24
+  177 0e400004 save ~ 4
+  178 0d80ffff load -1
+  179 0e400000 save ~ 0
+  180 0a00000f call 15
+  181 0c800008 spadd 8
+  182 0e400000 save ~ 0
+  183 0a000036 call 54
+  184 0c800004 spadd 4
+  185 0e400000 save ~ 0
+  186 0a000009 call 9
+  187 0c800008 spadd 8
+  188 08000006 jump 6
+  189 0c80fffc spadd -4
+  190 0d400008 load ~ 8
+  191 0e400000 save ~ 0
+  192 0a000036 call 54
+  193 0c800004 spadd 4
+  194 0b000000 ret
+  195 0d800000 load 0
+  196 0e00000c save # 12
+  197 0c80fffc spadd -4
+  198 0e400000 save ~ 0
+  199 0c800000 spadd 0
+  200 0a000018 call 24
+  201 0c800000 spadd 0
+  202 0e00000c save # 12
+  203 0d00000c load # 12
+  204 09000009 jifz 9
+  205 0c80fffc spadd -4
+  206 0d00000c load # 12
+  207 0e400000 save ~ 0
+  208 0a00001a call 26
+  209 0c800004 spadd 4
+  210 03400000 add ~ 0
+  211 0e400000 save ~ 0
+  212 0800fff3 jump -13
+  213 0d400000 load ~ 0
+  214 0c800004 spadd 4
+  215 11000000 halt
+  Code lines: 1; instructions: 216; bytes: 880
+stdout: |
+  HELLO CAT WORLD
+stderr: |-
+  add ~ 0        ip: 210, acc: 79, sp: 65527
+  save ~ 0        ip: 211, acc: 818, sp: 65527
+  jump -13        ip: 212, acc: 818, sp: 65527
+  spadd 0        ip: 199, acc: 818, sp: 65527
+  call 24        ip: 200, acc: 818, sp: 65527
+  call 24        ip: 200, acc: 818, sp: 65523
+  call 24        ip: 200, acc: 201, sp: 65523
+  call 24        ip: 200, acc: 201, sp: 65523
+  load # 0        ip: 24, acc: 201, sp: 65523
+  ret        ip: 25, acc: 82, sp: 65523
+  ret        ip: 25, acc: 82, sp: 65527
+  spadd 0        ip: 201, acc: 82, sp: 65527
+  save # 12        ip: 202, acc: 82, sp: 65527
+  load # 12        ip: 203, acc: 82, sp: 65527
+  jifz 9        ip: 204, acc: 82, sp: 65527
+  spadd -4        ip: 205, acc: 82, sp: 65527
+  load # 12        ip: 206, acc: 82, sp: 65523
+  save ~ 0        ip: 207, acc: 82, sp: 65523
+  call 26        ip: 208, acc: 82, sp: 65523
+  call 26        ip: 208, acc: 82, sp: 65519
+  call 26        ip: 208, acc: 209, sp: 65519
+  call 26        ip: 208, acc: 209, sp: 65519
+  load ~ 4        ip: 26, acc: 209, sp: 65519
+  save # 4        ip: 27, acc: 82, sp: 65519
+  ret        ip: 28, acc: 82, sp: 65519
+  ret        ip: 28, acc: 82, sp: 65523
+  spadd 4        ip: 209, acc: 82, sp: 65523
+  add ~ 0        ip: 210, acc: 82, sp: 65527
+  save ~ 0        ip: 211, acc: 900, sp: 65527
+  jump -13        ip: 212, acc: 900, sp: 65527
+  spadd 0        ip: 199, acc: 900, sp: 65527
+  call 24        ip: 200, acc: 900, sp: 65527
+  call 24        ip: 200, acc: 900, sp: 65523
+  call 24        ip: 200, acc: 201, sp: 65523
+  call 24        ip: 200, acc: 201, sp: 65523
+  load # 0        ip: 24, acc: 201, sp: 65523
+  ret        ip: 25, acc: 76, sp: 65523
+  ret        ip: 25, acc: 76, sp: 65527
+  spadd 0        ip: 201, acc: 76, sp: 65527
+  save # 12        ip: 202, acc: 76, sp: 65527
+  load # 12        ip: 203, acc: 76, sp: 65527
+  jifz 9        ip: 204, acc: 76, sp: 65527
+  spadd -4        ip: 205, acc: 76, sp: 65527
+  load # 12        ip: 206, acc: 76, sp: 65523
+  save ~ 0        ip: 207, acc: 76, sp: 65523
+  call 26        ip: 208, acc: 76, sp: 65523
+  call 26        ip: 208, acc: 76, sp: 65519
+  call 26        ip: 208, acc: 209, sp: 65519
+  call 26        ip: 208, acc: 209, sp: 65519
+  load ~ 4        ip: 26, acc: 209, sp: 65519
+  save # 4        ip: 27, acc: 76, sp: 65519
+  ret        ip: 28, acc: 76, sp: 65519
+  ret        ip: 28, acc: 76, sp: 65523
+  spadd 4        ip: 209, acc: 76, sp: 65523
+  add ~ 0        ip: 210, acc: 76, sp: 65527
+  save ~ 0        ip: 211, acc: 976, sp: 65527
+  jump -13        ip: 212, acc: 976, sp: 65527
+  spadd 0        ip: 199, acc: 976, sp: 65527
+  call 24        ip: 200, acc: 976, sp: 65527
+  call 24        ip: 200, acc: 976, sp: 65523
+  call 24        ip: 200, acc: 201, sp: 65523
+  call 24        ip: 200, acc: 201, sp: 65523
+  load # 0        ip: 24, acc: 201, sp: 65523
+  ret        ip: 25, acc: 68, sp: 65523
+  ret        ip: 25, acc: 68, sp: 65527
+  spadd 0        ip: 201, acc: 68, sp: 65527
+  save # 12        ip: 202, acc: 68, sp: 65527
+  load # 12        ip: 203, acc: 68, sp: 65527
+  jifz 9        ip: 204, acc: 68, sp: 65527
+  spadd -4        ip: 205, acc: 68, sp: 65527
+  load # 12        ip: 206, acc: 68, sp: 65523
+  save ~ 0        ip: 207, acc: 68, sp: 65523
+  call 26        ip: 208, acc: 68, sp: 65523
+  call 26        ip: 208, acc: 68, sp: 65519
+  call 26        ip: 208, acc: 209, sp: 65519
+  call 26        ip: 208, acc: 209, sp: 65519
+  load ~ 4        ip: 26, acc: 209, sp: 65519
+  save # 4        ip: 27, acc: 68, sp: 65519
+  ret        ip: 28, acc: 68, sp: 65519
+  ret        ip: 28, acc: 68, sp: 65523
+  spadd 4        ip: 209, acc: 68, sp: 65523
+  add ~ 0        ip: 210, acc: 68, sp: 65527
+  save ~ 0        ip: 211, acc: 1044, sp: 65527
+  jump -13        ip: 212, acc: 1044, sp: 65527
+  spadd 0        ip: 199, acc: 1044, sp: 65527
+  call 24        ip: 200, acc: 1044, sp: 65527
+  call 24        ip: 200, acc: 1044, sp: 65523
+  call 24        ip: 200, acc: 201, sp: 65523
+  call 24        ip: 200, acc: 201, sp: 65523
+  load # 0        ip: 24, acc: 201, sp: 65523
+  ret        ip: 25, acc: 0, sp: 65523
+  ret        ip: 25, acc: 0, sp: 65527
+  spadd 0        ip: 201, acc: 0, sp: 65527
+  save # 12        ip: 202, acc: 0, sp: 65527
+  load # 12        ip: 203, acc: 0, sp: 65527
+  jifz 9        ip: 204, acc: 0, sp: 65527
+  load ~ 0        ip: 213, acc: 0, sp: 65527
+  spadd 4        ip: 214, acc: 1044, sp: 65527
+  halt        ip: 215, acc: 1044, sp: 65531
+  Ticks: 425; instructions: 301
