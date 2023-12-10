@@ -1,0 +1,211 @@
+source: |-
+  (print "What is your name?")
+  (let l (read) (
+      + (print "Hello, ")
+      (print l)
+  ))
+input: Alice
+compiled: |-
+  121 0d400010 load ~ 16
+  122 0e400000 save ~ 0
+  123 0a00000c call 12
+  124 0c800008 spadd 8
+  125 0e400000 save ~ 0
+  126 0a000001 call 1
+  127 0c800004 spadd 4
+  128 0b000000 ret
+  129 0c80fffc spadd -4
+  130 0c80fffc spadd -4
+  131 0c80fff8 spadd -8
+  132 0d400018 load ~ 24
+  133 0e400004 save ~ 4
+  134 0d400014 load ~ 20
+  135 0e400000 save ~ 0
+  136 0a00000c call 12
+  137 0c800008 spadd 8
+  138 0e400000 save ~ 0
+  139 0a000001 call 1
+  140 0c800004 spadd 4
+  141 0e400000 save ~ 0
+  142 0a00004f call 79
+  143 0c800004 spadd 4
+  144 0b000000 ret
+  145 0c80fffc spadd -4
+  146 0c80fffc spadd -4
+  147 0c80fff8 spadd -8
+  148 0d400014 load ~ 20
+  149 0e400004 save ~ 4
+  150 0d400018 load ~ 24
+  151 0e400000 save ~ 0
+  152 0a00000c call 12
+  153 0c800008 spadd 8
+  154 0e400000 save ~ 0
+  155 0a000001 call 1
+  156 0c800004 spadd 4
+  157 0e400000 save ~ 0
+  158 0a00004f call 79
+  159 0c800004 spadd 4
+  160 0b000000 ret
+  161 0c80fffc spadd -4
+  162 0d400008 load ~ 8
+  163 0e400000 save ~ 0
+  164 0a000001 call 1
+  165 0c800004 spadd 4
+  166 09000017 jifz 23
+  167 0c80fff8 spadd -8
+  168 0c80fffc spadd -4
+  169 0d80002d load 45
+  170 0e400000 save ~ 0
+  171 0a00001a call 26
+  172 0c800004 spadd 4
+  173 0e400004 save ~ 4
+  174 0c80fffc spadd -4
+  175 0c80fff8 spadd -8
+  176 0d400018 load ~ 24
+  177 0e400004 save ~ 4
+  178 0d80ffff load -1
+  179 0e400000 save ~ 0
+  180 0a00000f call 15
+  181 0c800008 spadd 8
+  182 0e400000 save ~ 0
+  183 0a000036 call 54
+  184 0c800004 spadd 4
+  185 0e400000 save ~ 0
+  186 0a000009 call 9
+  187 0c800008 spadd 8
+  188 08000006 jump 6
+  189 0c80fffc spadd -4
+  190 0d400008 load ~ 8
+  191 0e400000 save ~ 0
+  192 0a000036 call 54
+  193 0c800004 spadd 4
+  194 0b000000 ret
+  195 0c80fffc spadd -4
+  196 0d80000c load 12
+  197 0e400000 save ~ 0
+  198 0a00002a call 42
+  199 0c800004 spadd 4
+  200 0c800000 spadd 0
+  201 0a00001d call 29
+  202 0c800000 spadd 0
+  203 0e00001f save # 31
+  204 0c80fff8 spadd -8
+  205 0c80fffc spadd -4
+  206 0d800023 load 35
+  207 0e400000 save ~ 0
+  208 0a00002a call 42
+  209 0c800004 spadd 4
+  210 0e400004 save ~ 4
+  211 0c80fffc spadd -4
+  212 0d00001f load # 31
+  213 0e400000 save ~ 0
+  214 0a00002a call 42
+  215 0c800004 spadd 4
+  216 0e400000 save ~ 0
+  217 0a000009 call 9
+  218 0c800008 spadd 8
+  219 11000000 halt
+  Code lines: 5; instructions: 220; bytes: 923
+stdout: |
+  What is your name?Hello, Alice
+stderr: |-
+  ldrel ~ -4        ip: 44, acc: 40, sp: 65515
+  and 255        ip: 45, acc: 1090527276, sp: 65515
+  jifz 6        ip: 46, acc: 44, sp: 65515
+  save # 4        ip: 47, acc: 44, sp: 65515
+  load ~ -4        ip: 48, acc: 44, sp: 65515
+  add 1        ip: 49, acc: 40, sp: 65515
+  save ~ -4        ip: 50, acc: 41, sp: 65515
+  jump -7        ip: 51, acc: 41, sp: 65515
+  ldrel ~ -4        ip: 44, acc: 41, sp: 65515
+  ldrel ~ -4        ip: 44, acc: 41, sp: 65515
+  and 255        ip: 45, acc: 1816199200, sp: 65515
+  jifz 6        ip: 46, acc: 32, sp: 65515
+  save # 4        ip: 47, acc: 32, sp: 65515
+  load ~ -4        ip: 48, acc: 32, sp: 65515
+  add 1        ip: 49, acc: 41, sp: 65515
+  save ~ -4        ip: 50, acc: 42, sp: 65515
+  jump -7        ip: 51, acc: 42, sp: 65515
+  ldrel ~ -4        ip: 44, acc: 42, sp: 65515
+  ldrel ~ -4        ip: 44, acc: 42, sp: 65515
+  and 255        ip: 45, acc: 1768702208, sp: 65515
+  jifz 6        ip: 46, acc: 0, sp: 65515
+  load 0        ip: 52, acc: 0, sp: 65515
+  ret        ip: 53, acc: 0, sp: 65515
+  ret        ip: 53, acc: 0, sp: 65519
+  spadd 4        ip: 209, acc: 0, sp: 65519
+  save ~ 4        ip: 210, acc: 0, sp: 65523
+  spadd -4        ip: 211, acc: 0, sp: 65523
+  load # 31        ip: 212, acc: 0, sp: 65519
+  save ~ 0        ip: 213, acc: 43, sp: 65519
+  call 42        ip: 214, acc: 43, sp: 65519
+  call 42        ip: 214, acc: 43, sp: 65515
+  call 42        ip: 214, acc: 215, sp: 65515
+  call 42        ip: 214, acc: 215, sp: 65515
+  load ~ 4        ip: 42, acc: 215, sp: 65515
+  save ~ -4        ip: 43, acc: 43, sp: 65515
+  ldrel ~ -4        ip: 44, acc: 43, sp: 65515
+  ldrel ~ -4        ip: 44, acc: 43, sp: 65515
+  and 255        ip: 45, acc: 1667853377, sp: 65515
+  jifz 6        ip: 46, acc: 65, sp: 65515
+  save # 4        ip: 47, acc: 65, sp: 65515
+  load ~ -4        ip: 48, acc: 65, sp: 65515
+  add 1        ip: 49, acc: 43, sp: 65515
+  save ~ -4        ip: 50, acc: 44, sp: 65515
+  jump -7        ip: 51, acc: 44, sp: 65515
+  ldrel ~ -4        ip: 44, acc: 44, sp: 65515
+  ldrel ~ -4        ip: 44, acc: 44, sp: 65515
+  and 255        ip: 45, acc: 1701013868, sp: 65515
+  jifz 6        ip: 46, acc: 108, sp: 65515
+  save # 4        ip: 47, acc: 108, sp: 65515
+  load ~ -4        ip: 48, acc: 108, sp: 65515
+  add 1        ip: 49, acc: 44, sp: 65515
+  save ~ -4        ip: 50, acc: 45, sp: 65515
+  jump -7        ip: 51, acc: 45, sp: 65515
+  ldrel ~ -4        ip: 44, acc: 45, sp: 65515
+  ldrel ~ -4        ip: 44, acc: 45, sp: 65515
+  and 255        ip: 45, acc: 6644585, sp: 65515
+  jifz 6        ip: 46, acc: 105, sp: 65515
+  save # 4        ip: 47, acc: 105, sp: 65515
+  load ~ -4        ip: 48, acc: 105, sp: 65515
+  add 1        ip: 49, acc: 45, sp: 65515
+  save ~ -4        ip: 50, acc: 46, sp: 65515
+  jump -7        ip: 51, acc: 46, sp: 65515
+  ldrel ~ -4        ip: 44, acc: 46, sp: 65515
+  ldrel ~ -4        ip: 44, acc: 46, sp: 65515
+  and 255        ip: 45, acc: 25955, sp: 65515
+  jifz 6        ip: 46, acc: 99, sp: 65515
+  save # 4        ip: 47, acc: 99, sp: 65515
+  load ~ -4        ip: 48, acc: 99, sp: 65515
+  add 1        ip: 49, acc: 46, sp: 65515
+  save ~ -4        ip: 50, acc: 47, sp: 65515
+  jump -7        ip: 51, acc: 47, sp: 65515
+  ldrel ~ -4        ip: 44, acc: 47, sp: 65515
+  ldrel ~ -4        ip: 44, acc: 47, sp: 65515
+  and 255        ip: 45, acc: 101, sp: 65515
+  jifz 6        ip: 46, acc: 101, sp: 65515
+  save # 4        ip: 47, acc: 101, sp: 65515
+  load ~ -4        ip: 48, acc: 101, sp: 65515
+  add 1        ip: 49, acc: 47, sp: 65515
+  save ~ -4        ip: 50, acc: 48, sp: 65515
+  jump -7        ip: 51, acc: 48, sp: 65515
+  ldrel ~ -4        ip: 44, acc: 48, sp: 65515
+  ldrel ~ -4        ip: 44, acc: 48, sp: 65515
+  and 255        ip: 45, acc: 0, sp: 65515
+  jifz 6        ip: 46, acc: 0, sp: 65515
+  load 0        ip: 52, acc: 0, sp: 65515
+  ret        ip: 53, acc: 0, sp: 65515
+  ret        ip: 53, acc: 0, sp: 65519
+  spadd 4        ip: 215, acc: 0, sp: 65519
+  save ~ 0        ip: 216, acc: 0, sp: 65523
+  call 9        ip: 217, acc: 0, sp: 65523
+  call 9        ip: 217, acc: 0, sp: 65519
+  call 9        ip: 217, acc: 218, sp: 65519
+  call 9        ip: 217, acc: 218, sp: 65519
+  load ~ 4        ip: 9, acc: 218, sp: 65519
+  add ~ 8        ip: 10, acc: 0, sp: 65519
+  ret        ip: 11, acc: 0, sp: 65519
+  ret        ip: 11, acc: 0, sp: 65523
+  spadd 8        ip: 218, acc: 0, sp: 65523
+  halt        ip: 219, acc: 0, sp: 65531
+  Ticks: 406; instructions: 347
