@@ -182,6 +182,7 @@
 ## Процессор
 ### Консольное приложение
 `milton <путь_до_бинарного_файла> <аргументы>[...]`
+
 #### Входные данные
 * Имя бинарного файла
 * Аргументы программы
@@ -289,35 +290,35 @@ jobs:
 
 Последние 30 строк потока ошибок:
 ```
-228 0c800004 spadd 4
-229 0e400004 save ~ 4
-230 0c80fffc spadd -4
-231 0c80fff8 spadd -8
-232 0d400018 load ~ 24
-233 0e400004 save ~ 4
-234 0d800005 load 5
-235 0e400000 save ~ 0
-236 0a000015 call 21 -> %
-237 0c800008 spadd 8
-238 0e400000 save ~ 0
-239 0a00004f call 79 -> !
-240 0c800004 spadd 4
-241 0e400000 save ~ 0
-242 0a000006 call 6 -> |
-243 0c800008 spadd 8
-244 09000003 jifz 3
-245 0d400004 load ~ 4
-246 08000002 jump 2
-247 0d800000 load 0
-248 03400000 add ~ 0
-249 0e400000 save ~ 0
-250 0800ffcf jump -49
-251 0d400000 load ~ 0
-252 0c800008 spadd 8
-253 0e400000 save ~ 0
-254 0a0000a1 call 161 -> print_int
-255 0c800004 spadd 4
-256 11000000 halt
+228 - 0c800004 - spadd 4
+229 - 0e400004 - save ~ 4
+230 - 0c80fffc - spadd -4
+231 - 0c80fff8 - spadd -8
+232 - 0d400018 - load ~ 24
+233 - 0e400004 - save ~ 4
+234 - 0d800005 - load 5
+235 - 0e400000 - save ~ 0
+236 - 0a000015 - call 21 -> %
+237 - 0c800008 - spadd 8
+238 - 0e400000 - save ~ 0
+239 - 0a00004f - call 79 -> !
+240 - 0c800004 - spadd 4
+241 - 0e400000 - save ~ 0
+242 - 0a000006 - call 6 -> |
+243 - 0c800008 - spadd 8
+244 - 09000003 - jifz 3
+245 - 0d400004 - load ~ 4
+246 - 08000002 - jump 2
+247 - 0d800000 - load 0
+248 - 03400000 - add ~ 0
+249 - 0e400000 - save ~ 0
+250 - 0800ffcf - jump -49
+251 - 0d400000 - load ~ 0
+252 - 0c800008 - spadd 8
+253 - 0e400000 - save ~ 0
+254 - 0a0000a1 - call 161 -> print_int
+255 - 0c800004 - spadd 4
+256 - 11000000 - halt
 Code lines: 6; instructions: 257; bytes: 1040
 ```
 
@@ -388,14 +389,7 @@ test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; fini
 
 ```
 | Нуцалханов Нуцалхан Гасанович | hello           | 1 |  829 | 201 |   110 |    127 | lisp | acc | neum | hw | instr | binary | stream | mem | cstr | prob1 | [4]char |
-<<<<<<< HEAD
-| Нуцалханов Нуцалхан Гасанович | hello_user_name | 5 |  923 | 220 |   347 |    406 | lisp | acc | neum | hw | instr | binary | stream | mem | cstr | prob1 | [4]char |
-| Нуцалханов Нуцалхан Гасанович | cat             | 1 |  880 | 216 |   301 |    425 | lisp | acc | neum | hw | instr | binary | stream | mem | cstr | prob1 | [4]char |
-| Нуцалханов Нуцалхан Гасанович | prob1           | 6 | 1040 | 256 | 87003 | 123009 | lisp | acc | neum | hw | instr | binary | stream | mem | cstr | prob1 | [4]char |
-```
-=======
 | Нуцалханов Нуцалхан Гасанович | hello_user_name | 5 |  927 | 222 |   349 |    408 | lisp | acc | neum | hw | instr | binary | stream | mem | cstr | prob1 | [4]char |
 | Нуцалханов Нуцалхан Гасанович | cat             | 1 |  880 | 217 |   302 |    426 | lisp | acc | neum | hw | instr | binary | stream | mem | cstr | prob1 | [4]char |
 | Нуцалханов Нуцалхан Гасанович | prob1           | 6 | 1040 | 257 | 87004 | 123010 | lisp | acc | neum | hw | instr | binary | stream | mem | cstr | prob1 | [4]char |
 ```
->>>>>>> 1625c97 (some fixes)
