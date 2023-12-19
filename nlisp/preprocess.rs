@@ -1,4 +1,4 @@
-use crate::expression::Expression;
+use crate::util::expression::Expression;
 
 #[derive(Debug)]
 pub struct Preprocessed {

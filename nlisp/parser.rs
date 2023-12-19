@@ -1,9 +1,7 @@
 use crate::{
-    expression::{Expression, ExpressionType},
-    util::{error_code, replace_n, split_first},
+    util::expression::{Expression, ExpressionType},
+    util::{declared::Declared, error_code, replace_n, split_first},
 };
-
-use super::declare::Declared;
 
 fn parse_char(expr_pointer: &mut &str) -> Result<Expression, String> {
     *expr_pointer = expr_pointer.trim_start();

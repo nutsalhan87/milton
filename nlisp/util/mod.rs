@@ -1,6 +1,10 @@
+pub mod declared;
+pub mod expression;
+pub mod std_expr;
+
 use std::cmp::min;
 
-use crate::expression::ExpressionType;
+use self::expression::ExpressionType;
 
 pub fn replace_n(s: String) -> String {
     s.split('\"')

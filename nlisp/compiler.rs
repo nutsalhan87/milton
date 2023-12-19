@@ -1,6 +1,6 @@
 use std::collections::HashMap;
 
-use crate::{expression::Expression, preprocess::Preprocessed};
+use crate::{preprocess::Preprocessed, util::expression::Expression};
 
 fn built_in() -> (Vec<u32>, HashMap<String, u16>) {
     let mut lines = include_str!("../resources/built-in-asm").lines();
@@ -36,6 +36,14 @@ impl Var {
             Var::InWord(arg) => *arg as u32 | 0x00800000u32,
         }
     }
+}
+
+fn spadd(vars: &mut HashMap<String, Var>, offset: i16) {
+    vars.iter_mut().for_each(|v| {
+        if let Var::Stack(n) = v.1 {
+            *n = (*n as i16 + -4 * offset) as u16;
+        }
+    });
 }
 
 fn translate(
@@ -81,11 +89,7 @@ fn translate(
         } => {
             let mut instructions = Vec::new();
 
-            vars.iter_mut().for_each(|v| {
-                if let Var::Stack(n) = v.1 {
-                    *n += 8;
-                }
-            });
+            spadd(vars, -2);
             vars.insert(var.clone(), Var::Stack(4)); // variable
 
             instructions.push(0x0C80FFF8); // spadd -8
@@ -116,11 +120,7 @@ fn translate(
             instructions.push(0x0C800008); // spadd 8
 
             vars.remove(var);
-            vars.iter_mut().for_each(|v| {
-                if let Var::Stack(n) = v.1 {
-                    *n -= 8;
-                }
-            });
+            spadd(vars, 2);
 
             instructions
         }
@@ -128,11 +128,7 @@ fn translate(
             let mut instructions = Vec::new();
             instructions.push(0x0C800000 | (args.len() as i16 * -4) as u16 as u32); // spadd -x, where x = args.len() * 4
 
-            vars.iter_mut().for_each(|v| {
-                if let Var::Stack(n) = v.1 {
-                    *n += args.len() as u16 * 4;
-                }
-            });
+            spadd(vars, -(args.len() as u16 as i16));
 
             for (idx, arg) in args
                 .iter()
@@ -146,22 +142,14 @@ fn translate(
             instructions.push(0x0A000000 | fn_addresses[name] as u32); // call
             instructions.push(0x0C800000 | (args.len() * 4) as u32); // spadd x
 
-            vars.iter_mut().for_each(|v| {
-                if let Var::Stack(n) = v.1 {
-                    *n -= args.len() as u16 * 4;
-                }
-            });
+            spadd(vars, args.len() as u16 as i16);
 
             instructions
         }
         Expression::VarDef { name, init, expr } => {
             let mut instructions = Vec::new();
 
-            vars.iter_mut().for_each(|v| {
-                if let Var::Stack(n) = v.1 {
-                    *n += 4;
-                }
-            });
+            spadd(vars, -1);
             vars.insert(name.clone(), Var::Stack(0)); // variable
             instructions.push(0x0C80FFFC); // spadd -4
 
@@ -174,11 +162,7 @@ fn translate(
 
             instructions.push(0x0C800004); // spadd 4
             vars.remove(name);
-            vars.iter_mut().for_each(|v| {
-                if let Var::Stack(n) = v.1 {
-                    *n -= 4;
-                }
-            });
+            spadd(vars, 1);
 
             instructions
         }
