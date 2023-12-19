@@ -1,6 +1,7 @@
 source: (for sym (in) sym (out sym))
 input: HELLO CAT WORLD
 compiled: |
+  Instructions:
   0 - 080000c3 - jump 195
   1 - 00400004 - sign ~ 4
   2 - 0b000000 - ret
@@ -218,6 +219,19 @@ compiled: |
   214 - 0d400000 - load ~ 0
   215 - 0c800008 - spadd 8
   216 - 11000000 - halt
+  Data:
+  0 - 00 - 00000000
+  1 - 00 - 00000000
+  2 - 00 - 00000000
+  3 - 00 - 00000000
+  4 - 00 - 00000000
+  5 - 00 - 00000000
+  6 - 00 - 00000000
+  7 - 00 - 00000000
+  8 - 0c - 00001100
+  9 - 00 - 00000000
+  10 - 00 - 00000000
+  11 - 00 - 00000000
   Code lines: 1; instructions: 217; bytes: 880
 stdout: |
   HELLO CAT WORLD

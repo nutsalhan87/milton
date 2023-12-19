@@ -211,6 +211,7 @@ pub fn compile(preprocessed: Preprocessed) -> (Vec<u8>, usize, usize) {
     }
     instructions.push(0x11000000); // halt
 
+    eprintln!("Instructions:");
     let instructions_count = instructions.len();
     for (idx, instr) in instructions.iter().copied().enumerate() {
         eprintln!(
@@ -224,6 +225,11 @@ pub fn compile(preprocessed: Preprocessed) -> (Vec<u8>, usize, usize) {
     data[9] = (data.len() as u32).to_le_bytes()[1];
     data[10] = (data.len() as u32).to_le_bytes()[2];
     data[11] = (data.len() as u32).to_le_bytes()[3];
+
+    eprintln!("Data:");
+    for (idx, byte) in data.iter().enumerate() {
+        eprintln!("{} - {:02x} - {:08b}", idx, byte, byte);
+    }
 
     let bytecode = [
         data,
